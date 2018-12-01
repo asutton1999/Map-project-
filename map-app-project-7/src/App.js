@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import SideBar  from './components/SideBar';
-import Marker from './components/Marker'
+//import Marker from './components/Marker'
 
 class App extends Component {
 
@@ -16,25 +16,36 @@ createMap = () => {
   window.initMap = this.initMap;
 }
 
-initMap =() => {
+initMap = () => {
   let map = new  window.google.maps.Map(document.getElementById('map'),
-   {center: { lat:27.949515, lng: -80.658322} , zoom:14});
-    }
+   {center: { lat:27.948460, lng:-80.663460} , zoom:13});
+   let locations = [
+       {address: '192 Broyles Dr SE, Palm Bay, FL 32909'  , coordinates: { lat:27.938230, lng:-80.668610 }},
+       {address:  '800 SE Yellow Wood Ct, Palm Bay, FL 32909' , coordinates: { lat: 27.945550, lng:-80.650760 }},
+       {address: '520 Remington Green Dr SE Unit 103, Palm Bay, FL 32909'  , coordinates: { lat: 27.939870, lng: -80.657970}},
+       {address: '2941 Emerson Dr SE, Palm Bay, FL 32909'  , coordinates: { lat:27.958870, lng:-80.648330 }},
+       {address:  '829 Eldron Blvd SE, Palm Bay, FL 32909' , coordinates: { lat:27.979620, lng:-80.661293}}
+       ]
+     let markers = [];
 
-createMarker = (map,position,title, id) => {
-  new window.google.maps.Marker({
-   map: map,
-   position:position,
-   title:title,
-   id:id
- })
+     for (let i=0; i< locations.length; i++){
+       let position = locations[i].coordinates;
+       let name = locations[i].address;
+
+     let marker = new window.google.maps.Marker({
+    map: map,
+    position:position,
+    title:name,
+    id:i
+  })
+    }
 }
 
   render() {
     return (
       <main>
       <SideBar/>
-      <div id = 'map'> <Marker map ={this.initmap} oncreateMarker ={this.createMarker}/>  </div>
+      <div id = 'map'>  </div>
     </main>
 );
   }
