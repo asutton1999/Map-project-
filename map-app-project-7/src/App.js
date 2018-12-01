@@ -10,6 +10,7 @@ componentDidMount = () => {
   this.createMap();
 }
 
+
 createMap = () => {
   scriptLoader ('https://maps.googleapis.com/maps/api/js?key=AIzaSyDy8YsvWWMMNGGHvIincdacAy34zKYKUN0&v=3&callback=initMap');
   window.initMap = this.initMap;
@@ -20,13 +21,20 @@ initMap =() => {
    {center: { lat:27.949515, lng: -80.658322} , zoom:14});
     }
 
-
+createMarker = (map,position,title, id) => {
+  new window.google.maps.Marker({
+   map: map,
+   position:position,
+   title:title,
+   id:id
+ })
+}
 
   render() {
     return (
       <main>
       <SideBar/>
-      <div id = 'map'> <Marker map ={this.initmap}/>  </div>
+      <div id = 'map'> <Marker map ={this.initmap} oncreateMarker ={this.createMarker}/>  </div>
     </main>
 );
   }
