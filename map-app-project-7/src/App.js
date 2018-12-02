@@ -16,21 +16,36 @@ createMap = () => {
   window.initMap = this.initMap;
 }
 
+locations = (info, index) => {
+    let locations = [
+      {address: '192 Broyles Dr SE, Palm Bay, FL 32909'  , coordinates: { lat:27.938230, lng:-80.668610 }},
+      {address:  '800 SE Yellow Wood Ct, Palm Bay, FL 32909' , coordinates: { lat: 27.945550, lng:-80.650760 }},
+      {address: '520 Remington Green Dr SE Unit 103, Palm Bay, FL 32909'  , coordinates: { lat: 27.939870, lng: -80.657970}},
+      {address: '2941 Emerson Dr SE, Palm Bay, FL 32909'  , coordinates: { lat:27.958870, lng:-80.648330 }},
+      {address:  '829 Eldron Blvd SE, Palm Bay, FL 32909' , coordinates: { lat:27.979620, lng:-80.661293}}
+      ]
+
+      if(info === 'address') {
+      return(locations[index].address)
+      }
+      if (info === 'coordinates')  {
+      return(locations[index].coordinates)
+      }
+      if(info === 'length') {
+        return(locations.length)
+      }
+     }
+
+
 initMap = () => {
+  console.log(this.locations( 'coordinates', 2))
   let map = new  window.google.maps.Map(document.getElementById('map'),
    {center: { lat:27.948460, lng:-80.663460} , zoom:13});
-   let locations = [
-       {address: '192 Broyles Dr SE, Palm Bay, FL 32909'  , coordinates: { lat:27.938230, lng:-80.668610 }},
-       {address:  '800 SE Yellow Wood Ct, Palm Bay, FL 32909' , coordinates: { lat: 27.945550, lng:-80.650760 }},
-       {address: '520 Remington Green Dr SE Unit 103, Palm Bay, FL 32909'  , coordinates: { lat: 27.939870, lng: -80.657970}},
-       {address: '2941 Emerson Dr SE, Palm Bay, FL 32909'  , coordinates: { lat:27.958870, lng:-80.648330 }},
-       {address:  '829 Eldron Blvd SE, Palm Bay, FL 32909' , coordinates: { lat:27.979620, lng:-80.661293}}
-       ]
      let markers = [];
-
-     for (let i=0; i< locations.length; i++){
-       let position = locations[i].coordinates;
-       let name = locations[i].address;
+     for (let i=0; i< this.locations('length',i); i++){
+       console.log(i);
+       let position = this.locations( 'coordinates', i);
+       let name = this.locations('address', i);
 
      let marker = new window.google.maps.Marker({
     map: map,
@@ -41,10 +56,17 @@ initMap = () => {
     }
 }
 
+appendLocations = () => {
+  for (let i=0; i< this.locations(5); i++){
+    let list = document.getElementById('ul');
+     list.append(this.locations(6));
+  }
+}
+
   render() {
     return (
       <main>
-      <SideBar/>
+      <SideBar  />
       <div id = 'map'>  </div>
     </main>
 );
