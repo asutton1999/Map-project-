@@ -16,6 +16,7 @@ createMap = () => {
   window.initMap = this.initMap;
 }
 
+// Stores data and contains method to call it
 locations = (info, index) => {
     let locations = [
       {address: '192 Broyles Dr SE, Palm Bay, FL 32909'  , coordinates: { lat:27.938230, lng:-80.668610 }},
@@ -56,17 +57,12 @@ initMap = () => {
     }
 }
 
-appendLocations = () => {
-  for (let i=0; i< this.locations(5); i++){
-    let list = document.getElementById('ul');
-     list.append(this.locations(6));
-  }
-}
+
 
   render() {
     return (
       <main>
-      <SideBar  />
+      <SideBar locations ={this.locations}  />
       <div id = 'map'>  </div>
     </main>
 );
