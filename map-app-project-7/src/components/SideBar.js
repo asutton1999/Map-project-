@@ -5,7 +5,7 @@ class SideBar extends Component {
 
 componentDidMount =() => {
   this.appendLocations()
-  this.addClick();
+//  this.addClick();
 }
   appendLocations = () => {
     for (let i=0; i< this.props.locations('length',i); i++){
@@ -17,11 +17,11 @@ componentDidMount =() => {
         list.append(li);
          let element = document.getElementById(i);
         element.innerHTML = address;
-
+       element.setAttribute('onclick', this.props.listClick(element))
     }
   }
 
-addClick = () => {
+/*addClick = () => {
   for (let j=0; j< this.props.locations('length',j); j++) {
     let address =  document.getElementById(j);
     console.log(address)
@@ -29,7 +29,7 @@ addClick = () => {
     console.log('clicked')
     })
   }
-}
+} */
 
 
 
