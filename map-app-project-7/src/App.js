@@ -6,7 +6,12 @@ import House2 from './images/Realtor-Photo-800-Yellow-Wood.jpg'
 import House3 from './images/Realtor-Photo-520-Remington.jpg'
 import House4 from './images/Realtor-Photo-2941-Emerson.jpg'
 import House5 from './images/Realtor-Photo-829-Eldron.jpg'
+import ShowHide from './components/Show-Hide'
 class App extends Component {
+
+state = {
+
+}
 
 
 componentDidMount = () => {
@@ -24,7 +29,7 @@ locations = (info, index) => {
     let locations = [
       {address: '192 Broyles Dr SE, Palm Bay, FL 32909'  , coordinates: { lat:27.938230, lng:-80.668610 }  , alt: "'picture of 192 Broyles street view single story.'"},
       {address:  '800 SE Yellow Wood Ct, Palm Bay, FL 32909' , coordinates: { lat: 27.945550, lng:-80.650760 }  , alt: "'picture of 800 Yellow Wood street view two story and large front yard.'"},
-      {address: '520 Remington Green Dr SE Unit 103, Palm Bay, FL 32909'  , coordinates: { lat: 27.939870, lng: -80.657970},image: House3 , alt: "'picture of 520 Remington street view single story.'"},
+      {address: '520 Remington Green Dr SE Unit 103, Palm Bay, FL 32909'  , coordinates: { lat: 27.939870, lng: -80.657970}, alt: "'picture of 520 Remington street view single story.'"},
       {address: '2941 Emerson Dr SE, Palm Bay, FL 32909'  , coordinates: { lat:27.958870, lng:-80.648330 } , alt: "'picture of 2941 Emerson street view single story.'" },
       {address:  '829 Eldron Blvd SE, Palm Bay, FL 32909' , coordinates: { lat:27.979620, lng:-80.661293}, alt:" 'picture of 829 Eldron street view single story and front yard.'" }
       ]
@@ -42,6 +47,7 @@ locations = (info, index) => {
         return(locations.length)
       }
     }
+
 
 
 // creates Map, markers, and infoWindow
@@ -79,9 +85,12 @@ initMap = () => {
     animation: window.google.maps.Animation.DROP,
     id:i
   })
+  this.setState({markers: marker})
+  console.log(marker)
     let infoWindow = new window.google.maps.InfoWindow ({
       content: content
     });
+     this.setState({infoWindow: infoWindow})
     marker.addListener('click', function(){
       marker.setAnimation(window.google.maps.Animation.BOUNCE)
       infoWindow.open(map, marker)
@@ -90,16 +99,20 @@ initMap = () => {
       infoWindow.close();
       marker.setAnimation(null);
     })
+    infoWindow.addListener('closeclick', function (){
+      marker.setAnimation(null);
+    })
     }
+
 }
 
 
-
   render() {
+    console.log(this.state.markers)
     return (
       <main>
-      <SideBar locations ={this.locations}  />
-      <div id = 'map'>  </div>
+      <SideBar locations ={this.locations} onChangeDisplay ={this.changeDisplay} markers = {this.state.markers} infoWindow ={ this.state.infoWindow} />
+      <div id = 'map' role ='application'>  </div>
     </main>
 );
   }

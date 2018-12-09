@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
-
+import ShowHide from './Show-Hide';
+import Filter from './Filter.js'
 class SideBar extends Component {
 
 componentDidMount =() => {
   this.appendLocations()
+  this.addClick();
 }
   appendLocations = () => {
     for (let i=0; i< this.props.locations('length',i); i++){
@@ -13,21 +15,31 @@ componentDidMount =() => {
         let address = this.props.locations('address', i);
         console.log(address);
         list.append(li);
-         let element = document.getElementById(i)
+         let element = document.getElementById(i);
         element.innerHTML = address;
+
     }
   }
+
+addClick = () => {
+  for (let j=0; j< this.props.locations('length',j); j++) {
+    let address =  document.getElementById(j);
+    console.log(address)
+    address.addEventListener('click', function () {
+    console.log('clicked')
+    })
+  }
+}
+
 
 
   render(){
 
     return(
       <div id='sideBar'>
+      <ShowHide  onchangeDisplaySideBar ={this.changeDisplaySideBar} onChangeDisplay ={this.props.onChangeDisplay}/>
       <h2> Search for Houses </h2>
-      <form id='filter' action='search'>
-      Address: <input type ='text' />
-       <input type="submit" value="Submit" />
-      </form>
+      <Filter  locations = {this.props.locations} />
       <ul id ='locations'>
       </ul>
       </div>
