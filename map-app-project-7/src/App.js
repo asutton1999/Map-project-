@@ -17,6 +17,7 @@ state = {
 
 componentDidMount = () => {
   this.createMap();
+
 }
 
 
@@ -92,8 +93,8 @@ initMap = () => {
     let infoWindow = new window.google.maps.InfoWindow ({
       content: content
     });
-     this.setState({infoWindow: infoWindow})
-    marker.addListener('click', function(){
+     this.setState({infoWindow: infoWindow}) } }
+/*    marker.addListener('click', function(){
       marker.setAnimation(window.google.maps.Animation.BOUNCE)
       infoWindow.open(map, marker)
     });
@@ -105,22 +106,37 @@ initMap = () => {
     infoWindow.addListener('closeclick', function (){
       marker.setAnimation(null);
     })
-    }
+  } */
 
+
+markerClick =() => {
+  this.state.markers.addListener('click', function(){
+  this.state.markers.setAnimation(window.google.maps.Animation.BOUNCE)
+      this.state.infoWindow.open(this.state.markers.map, this.state.markers)
+    });
+    this.state.markers.addListener('dblclick', function() {
+      this.state.infoWindow.close();
+      this.state.markers.setAnimation(null);
+    });
+
+    this.state.infoWindow.addListener('closeclick', function (){
+    this.state.markers.setAnimation(null);
+    });
 }
+
 listClick =(listItem) => {
   console.log(this.state.markers)
    let marker = this.state.markers.find((listItem) => listItem.innerHTML === marker.title);
    console.log(marker)
-   marker.addEventListener('click', function(){
+   marker.addListener('click', function(){
      marker.setAnimation(window.google.maps.Animation.BOUNCE)
      this.state.infoWindow.open(marker.map, marker)
    });
-   marker.addEventListener('dblclick', function() {
+   marker.addListener('dblclick', function() {
      this.state.infoWindow.close();
      marker.setAnimation(null);
    });
-} 
+}
 
   render() {
 

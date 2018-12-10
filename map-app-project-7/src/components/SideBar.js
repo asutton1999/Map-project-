@@ -17,7 +17,7 @@ componentDidMount =() => {
         list.append(li);
          let element = document.getElementById(i);
         element.innerHTML = address;
-       element.setAttribute('onclick', this.props.listClick(element))
+        //element.addEventListener('click', this.props.listClick())
     }
   }
 
