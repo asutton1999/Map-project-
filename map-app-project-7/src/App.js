@@ -10,7 +10,8 @@ import ShowHide from './components/Show-Hide'
 class App extends Component {
 
 state = {
-
+  markers: [],
+  infoWindow:[],
 }
 
 
@@ -85,8 +86,9 @@ initMap = () => {
     animation: window.google.maps.Animation.DROP,
     id:i
   })
-  this.setState({markers: marker})
-  console.log(marker)
+  markers.push(marker)
+  this.setState({markers: markers})
+  console.log(markers)
     let infoWindow = new window.google.maps.InfoWindow ({
       content: content
     });
@@ -99,19 +101,32 @@ initMap = () => {
       infoWindow.close();
       marker.setAnimation(null);
     })
+
     infoWindow.addListener('closeclick', function (){
       marker.setAnimation(null);
     })
     }
 
 }
-
+listClick =(listItem) => {
+  console.log(this.state.markers)
+   let marker = this.state.markers.find((listItem) => listItem.innerHTML === marker.title);
+   console.log(marker)
+   marker.addEventListener('click', function(){
+     marker.setAnimation(window.google.maps.Animation.BOUNCE)
+     this.state.infoWindow.open(marker.map, marker)
+   });
+   marker.addEventListener('dblclick', function() {
+     this.state.infoWindow.close();
+     marker.setAnimation(null);
+   });
+} 
 
   render() {
-    console.log(this.state.markers)
+
     return (
       <main>
-      <SideBar locations ={this.locations} onChangeDisplay ={this.changeDisplay} markers = {this.state.markers} infoWindow ={ this.state.infoWindow} />
+      <SideBar locations ={this.locations} markers = {this.state.markers} infoWindow ={ this.state.infoWindow} listClick ={this.listClick} />
       <div id = 'map' role ='application'>  </div>
     </main>
 );
