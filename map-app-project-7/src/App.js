@@ -91,6 +91,7 @@ initMap = () => {
   markers.push(marker)
   this.setState({markers: markers})
   console.log(markers)
+  console.log(this.state.markers)
     let infoWindow = new window.google.maps.InfoWindow ({
       content: content
     });
@@ -114,13 +115,9 @@ listClick =(listItem) => {
   console.log(this.state.markers)
    let marker = this.state.markers.find((listItem) => listItem.innerHTML === marker.title);
    console.log(marker)
-   marker.addListener('click', function(){
-     marker.setAnimation(window.google.maps.Animation.BOUNCE)
-     this.state.infoWindow.open(marker.map, marker)
-   });
-   marker.addListener('dblclick', function() {
-     this.state.infoWindow.close();
-     marker.setAnimation(null);
+   listItem.addEventListener('click', function(){
+     this.state.markers.setAnimation(window.google.maps.Animation.BOUNCE)
+     this.state.infoWindow.open(marker.map,this.state.markers)
    });
 }
 
