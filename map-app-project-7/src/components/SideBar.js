@@ -1,11 +1,16 @@
 import React, {Component} from 'react';
 import ShowHide from './Show-Hide';
 import Filter from './Filter.js'
+import List from './list.js'
 class SideBar extends Component {
 
-componentDidMount =() => {
-  this.appendLocations()
-//  this.addClick();
+  state = {
+
+  }
+
+ componentDidMount =() => {
+   console.log(this.props.markers)
+
 }
   appendLocations = () => {
     for (let i=0; i< this.props.locations('length',i); i++){
@@ -17,31 +22,30 @@ componentDidMount =() => {
         list.append(li);
          let element = document.getElementById(i);
         element.innerHTML = address;
-        element.addEventListener('click', this.props.listClick(element))
+        console.log(this.props.markers);
+
+
     }
-  }
+}
 
-/*addClick = () => {
-  for (let j=0; j< this.props.locations('length',j); j++) {
-    let address =  document.getElementById(j);
-    console.log(address)
-    address.addEventListener('click', function () {
-    console.log('clicked')
-    })
-  }
-} */
-
+addClick = () => {
+for ( let i =0;i< this.props.locations('length',i); i++)  {
+  let element = document.getElementById(i);
+  console.log(this.props.markers);
+  element.addEventListener('click', this.props.listClick(element))
+}
+}
 
 
   render(){
+    console.log(this.props.markers)
 
     return(
       <div id='sideBar'>
       <ShowHide  onchangeDisplaySideBar ={this.changeDisplaySideBar} onChangeDisplay ={this.props.onChangeDisplay}/>
       <h2> Search for Houses </h2>
       <Filter  locations = {this.props.locations} />
-      <ul id ='locations'>
-      </ul>
+      <List markers = {this.props.markers} appendLocations = {this.appendLocations} addClick ={this.addClick} />
       </div>
     )
 

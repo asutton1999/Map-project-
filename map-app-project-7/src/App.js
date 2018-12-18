@@ -19,6 +19,7 @@ componentDidMount = () => {
   this.createMap();
 
 
+
 }
 
 
@@ -89,8 +90,8 @@ initMap = () => {
     id:i
   })
   markers.push(marker)
+  //establish marker value globally
   this.setState({markers: markers})
-  console.log(markers)
   console.log(this.state.markers)
     let infoWindow = new window.google.maps.InfoWindow ({
       content: content
@@ -110,26 +111,28 @@ initMap = () => {
     })
   } }
 
-
-listClick =(listItem) => {
+//function to allow list addresses click response
+listClick = (listItem) => {
   console.log(this.state.markers)
-   let marker = this.state.markers.find((listItem) => listItem.innerHTML === marker.title);
+   let marker = this.state.markers.find((listItem) => listItem.id === marker.id);
    console.log(marker)
    listItem.addEventListener('click', function(){
-     this.state.markers.setAnimation(window.google.maps.Animation.BOUNCE)
-     this.state.infoWindow.open(marker.map,this.state.markers)
+     marker.setAnimation(window.google.maps.Animation.BOUNCE)
+     this.state.infoWindow.open(marker.map, marker)
    });
 }
 
   render() {
-
+ if (this.state.markers !== '[]'){
     return (
       <main>
-      <SideBar locations ={this.locations} markers = {this.state.markers} infoWindow ={ this.state.infoWindow} listClick ={this.listClick} />
+        {console.log(this.state.markers) }
+        <SideBar locations ={this.locations} markers = {this.state.markers} infoWindow ={ this.state.infoWindow} listClick ={this.listClick} />
       <div id = 'map' role ='application'>  </div>
     </main>
 );
-  }
+}
+}
 }
 
  function scriptLoader(url) {
