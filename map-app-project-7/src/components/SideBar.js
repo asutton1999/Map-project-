@@ -12,11 +12,15 @@ class SideBar extends Component {
    console.log(this.props.markers)
 
 }
+
+
+
   appendLocations = () => {
     for (let i=0; i< this.props.locations('length',i); i++){
       let list = document.getElementById('locations');
         let li = document.createElement('li');
         li.setAttribute('id', i);
+        li.setAttribute('key', i);
         let address = this.props.locations('address', i);
         console.log(address);
         list.append(li);
@@ -45,7 +49,7 @@ for ( let i =0;i< this.props.locations('length',i); i++)  {
       <ShowHide  onchangeDisplaySideBar ={this.changeDisplaySideBar} onChangeDisplay ={this.props.onChangeDisplay}/>
       <h2> Search for Houses </h2>
       <Filter  locations = {this.props.locations} />
-      <List markers = {this.props.markers} appendLocations = {this.appendLocations} addClick ={this.addClick} />
+      <List markers = {this.props.markers} appendLocations = {this.appendLocations} listClick ={this.props.listClick} addClick = {this.addClick} />
       </div>
     )
 
