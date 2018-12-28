@@ -119,19 +119,22 @@ listClick = (listItem) => {
    listItem.addEventListener('click', function(){
      marker.setAnimation(window.google.maps.Animation.BOUNCE)
      this.state.infoWindow.open(marker.map, marker)
-   });
+   }
+ );
+ console.log(listItem);
 }
 
+
+
   render() {
- if (this.state.markers !== '[]'){
+
     return (
       <main>
         {console.log(this.state.markers) }
-        <SideBar locations ={this.locations} markers = {this.state.markers} infoWindow ={ this.state.infoWindow} listClick ={this.listClick} />
+        <SideBar locations ={this.locations} markers = {this.state.markers}  sinfoWindow ={ this.state.infoWindow} listClick ={this.listClick} />
       <div id = 'map' role ='application'>  </div>
-    </main>
-);
-}
+     </main>
+)
 }
 }
 
