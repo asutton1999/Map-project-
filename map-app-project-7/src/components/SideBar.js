@@ -32,13 +32,7 @@ class SideBar extends Component {
     }
 }
 
-addClick = () => {
-for ( let i =0;i< this.props.locations('length',i); i++)  {
-  let element = document.getElementById(i);
-  console.log(this.props.markers);
-  element.addEventListener('click', this.props.listClick(element))
-}
-}
+
 
 
   render(){
@@ -49,7 +43,7 @@ for ( let i =0;i< this.props.locations('length',i); i++)  {
       <ShowHide  onchangeDisplaySideBar ={this.changeDisplaySideBar} onChangeDisplay ={this.props.onChangeDisplay}/>
       <h2> Search for Houses </h2>
       <Filter  locations = {this.props.locations} />
-      <List markers = {this.props.markers} appendLocations = {this.appendLocations} listClick ={this.props.listClick} addClick = {this.addClick} />
+      <List markers = {this.props.markers} onmarkerClick ={this.props.onmarkerClick} />
       </div>
     )
 

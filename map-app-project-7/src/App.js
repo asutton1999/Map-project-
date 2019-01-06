@@ -112,17 +112,17 @@ initMap = () => {
   } }
 
 //function to allow list addresses click response
-listClick = (listItem) => {
-  console.log(this.state.markers)
-   let marker = this.state.markers.find((listItem) => listItem.id === marker.id);
-   console.log(marker)
-   listItem.addEventListener('click', function(){
-     marker.setAnimation(window.google.maps.Animation.BOUNCE)
-     this.state.infoWindow.open(marker.map, marker)
-   }
- );
- console.log(listItem);
-}
+
+
+markerClick = (marker) => {
+marker.setAnimation(window.google.maps.Animation.BOUNCE)
+  let content = '<div id="content">' + '<div id="image">' + /*'<img src =' + image + ' alt = ' + alt + '>'*/ +  '</div>' + '<div id ="name">' + marker.title + '</div>' ;
+      let infoWindow = new window.google.maps.InfoWindow ({
+        content: content
+      });
+      infoWindow.open(marker.map, marker);
+
+  }
 
 
 
@@ -131,7 +131,7 @@ listClick = (listItem) => {
     return (
       <main>
         {console.log(this.state.markers) }
-        <SideBar locations ={this.locations} markers = {this.state.markers}  sinfoWindow ={ this.state.infoWindow} listClick ={this.listClick} />
+        <SideBar locations ={this.locations} markers = {this.state.markers}  infoWindow ={ this.state.infoWindow} onmarkerClick ={this.markerClick} />
       <div id = 'map' role ='application'>  </div>
      </main>
 )
