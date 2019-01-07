@@ -112,16 +112,58 @@ initMap = () => {
   } }
 
 //function to allow list addresses click response
+titlematch = (marker) => {
+if (marker.title === '192 Broyles Dr SE, Palm Bay, FL 32909') {
+  return(House1)
+}
+if( marker.title === '800 SE Yellow Wood Ct, Palm Bay, FL 32909'){
+  return(House2)
+}
+if(marker.title === '520 Remington Green Dr SE Unit 103, Palm Bay, FL 32909'){
+  return(House3)
+}
+if(marker.title === '2941 Emerson Dr SE, Palm Bay, FL 32909' ){
+  return(House4)
+}
 
-
+if (marker.title === '829 Eldron Blvd SE, Palm Bay, FL 32909'){
+  return(House5)
+}
+}
+altmatch =(image) => {
+  if( image === House1){
+    return(this.locations('alt',0))
+  }
+  if( image === House2){
+    return(this.locations('alt',1))
+  }
+  if( image === House3){
+    return(this.locations('alt',2))
+  }
+  if( image === House4){
+    return(this.locations('alt',3))
+  }
+  if( image === House5){
+    return(this.locations('alt',4))
+  }
+}
 markerClick = (marker) => {
 marker.setAnimation(window.google.maps.Animation.BOUNCE)
-  let content = '<div id="content">' + '<div id="image">' + /*'<img src =' + image + ' alt = ' + alt + '>'*/ +  '</div>' + '<div id ="name">' + marker.title + '</div>' ;
+ let image = this.titlematch(marker);
+ let alt = this.altmatch(image);
+  let content = '<div id="content">' + '<div id="image">' + '<img src =' + image + ' alt = ' + alt + '>' +  '</div>' + '<div id ="name">' + marker.title + '</div>' ;
       let infoWindow = new window.google.maps.InfoWindow ({
         content: content
       });
       infoWindow.open(marker.map, marker);
+      marker.addListener('dblclick', function() {
+        infoWindow.close();
+        marker.setAnimation(null);
+      })
 
+      infoWindow.addListener('closeclick', function (){
+        marker.setAnimation(null);
+      })
   }
 
 
