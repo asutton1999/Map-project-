@@ -176,7 +176,7 @@ marker.setAnimation(window.google.maps.Animation.BOUNCE)
   //  hide listings
   var start = [];
   for(var i=0 ; i< this.state.markers; i++) {
-    start.i =[markers[i].position]
+    start.i =[ this.state.markers[i].position]
   }
   var end = address;
 distancematrix.getDistanceMatrix({
