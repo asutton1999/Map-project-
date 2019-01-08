@@ -167,13 +167,41 @@ marker.setAnimation(window.google.maps.Animation.BOUNCE)
   }
 
 
+  searchbydistance = () => {
+    let distancematrix = new  window.google.maps.DistanceMatrixService;
+    var address=document.getElementById('addressField').value;
+    if (address =''){
+    window.alert('you must enter an address');
+  }else{
+  //  hide listings
+  var start = [];
+  for(var i=0 ; i< this.state.markers; i++) {
+    start.i =[markers[i].position]
+  }
+  var end = address;
+distancematrix.getDistanceMatrix({
+  origins:start,
+  destinations:[end],
+  unitSystem:window.google.maps.unitSystem.Imperial,
+}, function(response,status) {
+  if (status!== window.google.maps.DistanceMatrixStatus.OK){
+    window.alert('Error:' + status);
+  }else{
+  console.log(response);
+  }
+
+})
+  }
+  }
+
+
 
   render() {
 
     return (
       <main>
         {console.log(this.state.markers) }
-        <SideBar locations ={this.locations} markers = {this.state.markers}  infoWindow ={ this.state.infoWindow} onmarkerClick ={this.markerClick} />
+        <SideBar locations ={this.locations} markers = {this.state.markers}  infoWindow ={ this.state.infoWindow} onmarkerClick ={this.markerClick} searchbydistance ={this.searchbydistance} />
       <div id = 'map' role ='application'>  </div>
      </main>
 )

@@ -42,7 +42,7 @@ class SideBar extends Component {
       <div id='sideBar'>
       <ShowHide  onchangeDisplaySideBar ={this.changeDisplaySideBar} onChangeDisplay ={this.props.onChangeDisplay}/>
       <h2> Search for Houses </h2>
-      <Filter  locations = {this.props.locations} />
+      <Filter  locations = {this.props.locations} searchbydistance ={this.props.searchbydistance} />
       <List markers = {this.props.markers} onmarkerClick ={this.props.onmarkerClick} />
       </div>
     )
